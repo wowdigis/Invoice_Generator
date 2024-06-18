@@ -153,17 +153,17 @@ const InvoiceModal = ({
                 <div className="w-50 pt-4 ">
                   <h3 className="fw-bold text-primary">Thank You!</h3>
                 </div>
-                <div className="w-50 text-end ">
+                <div className="w-50 text-center">
                   {info.signImage && (
                     <div className="my-2">
-                      <img src={info.signImage} alt="Preview" style={{ width: '100px', height: '100px' }} />
+                      <img src={info.signImage} alt="Preview" style={{ width: '150px', height: '80px',margin:'auto' }} />
                     </div>
                   )}
-                  <h5 className="fw-bold">Authorized Signatory</h5>
+                  <h6 className="fw-bold">Authorized Signatory</h6>
                 </div>
               </div>
-              <img src={wowbottomImage} alt="bottomImage" className="w-100 h-auto" />
             </div>
+            <img src={wowbottomImage} alt="bottomImage" className="w-100 h-auto" />
             {/* {info.notes && (
               <div className="bg-light pt-2 px-4 rounded">{info.notes}</div>
             )} */}
