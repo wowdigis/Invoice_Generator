@@ -13,21 +13,23 @@ class InvoiceForm extends React.Component {
     super(props);
     const { invoiceData: data } = this.props;
     if (data) {
-      const { info, items, total, subTotal,currency } = data;
+      const { info, items, total, subTotal, currency } = data;
       this.state = {
         id: info.id,
-        currency:currency,
+        currency: currency,
         currentDate: info.currentDate,
         invoiceNumber: info.invoiceNumber,
         dateOfIssue: info.dateOfIssue,
+        gstNumber: info.gstNumber,
         billTo: info.billTo,
-        billToEmail: info.billToEmail,
-        billToAddress: info.billToAddress,
+        billToAdress: info.billToAdress,
+        billToName: info.billToName,
         billFrom: info.billFrom,
-        billFromEmail: info.billFromEmail,
-        billFromAddress: info.billFromAddress,
+        billFromBankName: info.billFromBankName,
+        billFromAccountNo: info.billFromAccountNo,
+        billFromIFSC: info.billFromIFSC,
         billFromBranch: info.billFromBranch,
-        notes: info.notes,
+        signImage: info.signImage,
         total: total,
         subTotal: subTotal,
         taxRate: info.taxRate,
@@ -48,13 +50,17 @@ class InvoiceForm extends React.Component {
       invoiceNumber: "",
       dateOfIssue: "",
       billTo: "",
-      billToEmail: "",
-      billToAddress: "",
+      billToMobile: "",
+      billToAdress: "",
+      billToName: "",
       billFrom: "",
-      billFromEmail: "",
-      billFromAddress: "",
+      billFromBankName: "",
+      billFromAccountNo: "",
+      billFromIFSC: "",
       billFromBranch: "",
-      notes: "",
+      gstNumber: "",
+      signImage: '', // This will hold the image file
+      previewUrl: '', // This will hold the preview URL of the image
       total: 0.0,
       subTotal: 0.0,
       taxRate: 0.0,
@@ -74,6 +80,24 @@ class InvoiceForm extends React.Component {
     this.editField = this.editField.bind(this);
     this.handleAddEvent = this.handleAddEvent.bind(this);
   }
+
+  //.......................................//
+  handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      this.setState({ previewUrl });
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.setState({ signImage: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  //........................................//
 
   componentDidMount(prevProps) {
     this.handleCalculateTotal();
@@ -209,7 +233,7 @@ class InvoiceForm extends React.Component {
                     Invoice&nbsp;Number:&nbsp;
                   </span>
                   <Form.Control
-                    type="number"
+                    type="text"
                     value={this.state.invoiceNumber}
                     name={"invoiceNumber"}
                     onChange={(event) => this.editField(event)}
@@ -217,7 +241,7 @@ class InvoiceForm extends React.Component {
                     style={{
                       maxWidth: "70px",
                     }}
-                    required="required"
+                  // required="required"
                   />
                 </div>
               </div>
@@ -228,67 +252,76 @@ class InvoiceForm extends React.Component {
                   <Form.Control
                     placeholder={"Who is this invoice to?"}
                     rows={3}
-                    value={this.state.billTo}
+                    value={this.state.billToName}
                     type="text"
-                    name="billTo"
+                    name="billToName"
                     className="my-2"
                     onChange={(event) => this.editField(event)}
                     autoComplete="name"
-                    required="required"
+                  // required="required"
                   />
                   <Form.Control
-                    placeholder={"Email address"}
-                    value={this.state.billToEmail}
-                    type="email"
-                    name="billToEmail"
+                    placeholder={"Mobile Number"}
+                    value={this.state.billToMobile}
+                    type="number"
+                    name="billToMobile"
                     className="my-2"
                     onChange={(event) => this.editField(event)}
-                    autoComplete="email"
-                    required="required"
+                    autoComplete="mobile"
+                  // required="required"
                   />
                   <Form.Control
                     placeholder={"Billing address"}
-                    value={this.state.billToAddress}
+                    value={this.state.billToAdress}
                     type="text"
-                    name="billToAddress"
+                    name="billToAdress"
                     className="my-2"
                     autoComplete="address"
                     onChange={(event) => this.editField(event)}
-                    required="required"
+                  // required="required"
+                  />
+                  <Form.Control
+                    placeholder={"Enter GSTIN Number"}
+                    value={this.state.gstNumber}
+                    type="text"
+                    name="gstNumber"
+                    className="my-2"
+                    autoComplete="address"
+                    onChange={(event) => this.editField(event)}
+                  // required="required"
                   />
                 </Col>
                 <Col>
                   <Form.Label className="fw-bold">Bill from:</Form.Label>
                   <Form.Control
                     placeholder={"Enter Bank Name"}
-                    rows={3}
-                    value={this.state.billFrom}
+                    value={this.state.billFromBankName}
                     type="text"
-                    name="billFrom"
-                    className="my-2"
-                    onChange={(event) => this.editField(event)}
-                    autoComplete="name"
-                    required="required"
-                  />
-                  <Form.Control
-                    placeholder={"Enter Account Number"}
-                    value={this.state.billFromEmail}
-                    type="number"
-                    name="billFromEmail"
+                    name="billFromBankName"
                     className="my-2"
                     onChange={(event) => this.editField(event)}
                     autoComplete="email"
-                    required="required"
+                  // required="required"
+                  />
+                  <Form.Control
+                    placeholder={"Enter Account Number"}
+                    value={this.state.billFromAccountNo}
+                    type="number"
+                    name="billFromAccountNo"
+                    className="my-2"
+                    autoComplete="AccountNo"
+                    onChange={(event) => this.editField(event)}
+                  // required="required"
                   />
                   <Form.Control
                     placeholder={"Enter IFSC Code"}
-                    value={this.state.billFromAddress}
+                    value={this.state.billFromIFSC}
                     type="text"
-                    name="billFromAddress"
+                    name="billFromIFSC"
                     className="my-2"
                     autoComplete="address"
                     onChange={(event) => this.editField(event)}
-                    required="required"
+                  // required="required"
                   />
                   <Form.Control
                     placeholder={"Enter Branch Name"}
@@ -298,7 +331,7 @@ class InvoiceForm extends React.Component {
                     className="my-2"
                     autoComplete="address"
                     onChange={(event) => this.editField(event)}
-                    required="required"
+                  // required="required"
                   />
                 </Col>
               </Row>
@@ -354,16 +387,34 @@ class InvoiceForm extends React.Component {
                 </Col>
               </Row>
               <hr className="my-4" />
-              <Form.Label className="fw-bold">Notes:</Form.Label>
-              <Form.Control
+              <Form.Label className="fw-bold">Upload Sign:</Form.Label>
+              {/* <Form.Control
                 placeholder="Thanks for your business!"
-                name="notes"
-                value={this.state.notes}
+                name="signImage"
+                value={this.state.signImage}
                 onChange={(event) => this.editField(event)}
                 as="textarea"
                 className="my-2"
                 rows={1}
-              />
+              /> */}
+
+
+              <Form.Group>
+                <Form.Control
+                  type="file"
+                  name="signImage"
+                  onChange={this.handleFileChange}
+                  className="my-2"
+                  accept="image/*"
+                />
+              </Form.Group>
+
+              {this.state.previewUrl && (
+                <div className="my-2">
+                  <img src={this.state.previewUrl} alt="Preview" style={{ width: '100px', height: '100px' }} />
+                </div>
+              )}
+
             </Card>
           </Col>
           <Col md={4} lg={3}>
