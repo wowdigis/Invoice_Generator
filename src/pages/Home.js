@@ -73,8 +73,8 @@ const Home = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{invoice.info.id}</td>
-                <td>{invoice.info.billTo}</td>
-                <td>{invoice.info.billFrom}</td>
+                <td>{invoice.info.billToName}</td>
+                <td>{invoice.info.billFromBankName}</td>
                 <td>{invoice.info.dateOfIssue}</td>
                 <td>
                 <Button

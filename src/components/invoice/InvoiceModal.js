@@ -61,33 +61,33 @@ const InvoiceModal = ({
         <div id="invoiceCapture">
           <img src={wowheadImage} alt="headingImage" className="w-100 h-auto" />
           {
-            info.gstNumber.length !== 0 && (
-              <h6 className="px-4 fw-bold">
-                <span className="px-4">GSTIN : {info.gstNumber}</span>
+            info.billFromGSTNumber && (
+              <h6 className="px-4 " style={{marginLeft:"35px"}}>
+                <span className="px-4"><span className="fontBold">GSTIN :</span> {info.billFromGSTNumber}</span>
               </h6>
             )
           }
-          <div className="d-flex flex-row justify-content-between align-items-start bg-light w-100 p-4">
-            <div className="w-50 px-4">
-              <h5 className="fw-bold text-primary">Billed to:</h5>
-              <div className="fw-bold">{info.billTo || ""}</div>
-              <div><span className="fw-bold"> </span> {info.billToName || ""}</div>
-              <div><span className="fw-bold"> </span> {info.billToAdress || ""}</div>
-              <div><span className="fw-bold"> </span> {info.billToMobile || ""}</div>
+          <div style={{padding:"10px 80px"}} className=" compact-line-height d-flex flex-row justify-content-between align-items-start w-100 ">
+            <div className="w-50 ">
+              <h6 className="invoice-firasanfont pt-4 fs-5">Billed to:</h6>
+              <div className="pt-2 fontBold">{info.billToName || ""}</div>
+              <div className="poppins-regular"><span className=" fontBold">Mobile No: </span> {info.billToMobile || ""}</div>
+              <div className="poppins-regular"><span className="fontBold">Email: </span> {info.billToEmail  || ""}</div>
+              <div className="poppins-regular"><span className="fontBold">Address: </span> {info.billToAdress || ""}</div>
               {
-                info.gstNumber.length !== 0 && (
-                  <div><span className="fw-bold">GSTIN : </span> {info.gstNumber || ""}</div>
+                info.BillToGstNumber && (
+                  <div className="poppins-regular"><span className="fontBold">GSTIN : </span> {info.BillToGstNumber || ""}</div>
                 )
               }
             </div>
-            <div className="text-end w-50 px-4">
-              <h1 className="fw-bold mt-1 text-primary ">Invoice</h1>
-              <h5 className="fw-bold">Invoice #: {info.invoiceNumber || ""}</h5>
-              <div className="fw-bold fs-5">{info.dateOfIssue || ""}</div>
+            <div className="text-end w-50 invoice-firasanfont">
+              <div className="mt-1 fs-1">Invoice</div>
+              <div className="fs-5 " style={{color:"black"}}>Invoice # {info.invoiceNumber || ""}</div>
+              <div className="fs-5 "style={{color:"black"}}>{info.dateOfIssue || ""}</div>
             </div>
           </div>
-          <div className="pb-2">
-            <Table className="mb-4 mt-4 text-center invoice-table px-4">
+          <div style={{padding:"0px 75px"}}>
+            <Table className="mb-4 mt-4 text-center invoice-table ">
               <tbody>
                 <tr className="table-row w-100">
                   <td className="table-header" style={{ width: "35%" }}>ITEM</td>
@@ -97,15 +97,15 @@ const InvoiceModal = ({
                 </tr>
                 {items.map((item, i) => (
                   <tr key={i} className="table-row">
-                    <td className="table-cell">{item.name} - {item.description}</td>
-                    <td className="table-cell">{item.quantity}</td>
-                    <td className="table-cell">{currency} {item.price}</td>
-                    <td className="table-cell">{currency} {item.price * item.quantity}</td>
+                    <td className="table-cell text-start" style={{padding:"10px 20px"}}>{item.name} {item.description}</td>
+                    <td className="table-cell" style={{padding:"10px 20px"}}>{item.quantity}</td>
+                    <td className="table-cell" style={{padding:"10px 20px"}}>{currency} {item.price}</td>
+                    <td className="table-cell" style={{padding:"10px 20px"}}>{currency} {item.price * item.quantity}</td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <Table className="mb-4 mt-4 text-center invoice-table px-4">
+            <Table className="mb-4 mt-4 text-center invoice-table ">
               <tbody>
                 <tr className="table-row w-100">
                   <td className="table-cell" style={{ width: "35%" }}>&nbsp;</td>
@@ -133,42 +133,41 @@ const InvoiceModal = ({
                   <td className="table-cell" style={{ width: "35%" }}>&nbsp;</td>
                   <td className="table-cell" style={{ width: "12%" }}>&nbsp;</td>
                   <td className="table-cell" style={{ width: "18%" }}>TOTAL</td>
-                  <td className="table-cell" style={{ width: "18%" }}>{currency} {total}</td>
+                  <td className="table-cell" style={{ width: "18%", fontWeight:"900" }}>{currency} {total}</td>
                 </tr>
               </tbody>
             </Table>
-            <div className="d-flex flex-column justify-content-between align-items-start bg-light w-100 pb-0 px-4">
-              <div className="w-100 px-4">
-                <h5 className="fw-bold text-primary">BANK TRANSFER DETAILS:</h5>
-                <div className="fw-bold">{info.billTo || ""}</div>
-                <div><span className="fw-bold">BANK NAME: </span> {info.billFromBankName || ""}</div>
-                <div><span className="fw-bold">A/C- </span> {info.billFromAccountNo || ""}</div>
-                <div><span className="fw-bold">IFSC CODE -  </span> {info.billFromIFSC || ""}</div>
-                <div><span className="fw-bold">BRANCH NAME -  </span> {info.billFromBranch || ""}</div>
+            <div className="d-flex flex-column justify-content-between align-items-start w-100 pb-0 px-2">
+              <div className="w-100 ">
+                <h5 className="invoice-firasanfont pb-2">BANK TRANSFER DETAILS:</h5>
+                <div className="poppins-regular"><span className="fontBold">BANK NAME: </span> {info.billFromBankName || ""}</div>
+                <div className="poppins-regular">{info.billTFromName || ""}</div>
+                <div className="poppins-regular"><span className="fontBold">A/C- </span> {info.billFromAccountNo || ""}</div>
+                <div className="poppins-regular"><span className="fontBold">IFSC CODE -  </span> {info.billFromIFSC || ""}</div>
+                <div className="poppins-regular"><span className="fontBold">BRANCH NAME -  </span> {info.billFromBranch || ""}</div>
               </div>
-              <div className="w-100 text-end pb-2 px-4">
+              {/* <div className="w-100 text-end pb-2 px-4">
                 <h6>For : WOWSTAR SERVICES INDIA PVT LTD</h6>
-              </div>
-              <div className="d-flex flex-row justify-content-between align-items-start bg-light w-100 pb-4 px-4">
-                <div className="w-50 pt-4 ">
-                  <h3 className="fw-bold text-primary">Thank You!</h3>
+              </div> */}
+              <div className="d-flex flex-row justify-content-between align-items-start w-100 ">
+                <div className="w-50 align-bottom" style={{paddingTop:"100px"}}>
+                  <h2 className="invoice-firasanfont">Thank you!</h2>
                 </div>
-                <div className="w-50 text-center">
+                <div className="w-50 text-end">
                   {info.signImage && (
-                    <div className="my-2">
-                      <img src={info.signImage} alt="Preview" style={{ width: '150px', height: '80px',margin:'auto' }} />
+                    <div>
+                      <img src={info.signImage} alt="Preview" style={{ width: '150px', height: '150px',margin:'auto' }} />
                     </div>
                   )}
-                  <h6 className="fw-bold">Authorized Signatory</h6>
+                  <h6 className="fontBold">Authorized Signatory</h6>
                 </div>
               </div>
             </div>
-            <img src={wowbottomImage} alt="bottomImage" className="w-100 h-auto" />
             {/* {info.notes && (
-              <div className="bg-light pt-2 px-4 rounded">{info.notes}</div>
+              <div className= pt-2 px-4 rounded">{info.notes}</div>
             )} */}
           </div>
-
+          <img src={wowbottomImage} alt="bottomImage" className="w-100 h-auto" />
         </div>
         <div className="pb-4 px-4 pt-4">
           <Row>

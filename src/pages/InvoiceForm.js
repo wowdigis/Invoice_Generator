@@ -20,15 +20,16 @@ class InvoiceForm extends React.Component {
         currentDate: info.currentDate,
         invoiceNumber: info.invoiceNumber,
         dateOfIssue: info.dateOfIssue,
-        gstNumber: info.gstNumber,
-        billTo: info.billTo,
+        BillToGstNumber: info.BillToGstNumber,
+        billToEmail: info.billToEmail,
         billToAdress: info.billToAdress,
         billToName: info.billToName,
-        billFrom: info.billFrom,
+        billTFromName: info.billTFromName,
         billFromBankName: info.billFromBankName,
         billFromAccountNo: info.billFromAccountNo,
         billFromIFSC: info.billFromIFSC,
         billFromBranch: info.billFromBranch,
+        billFromGSTNumber:info.billFromGSTNumber,
         signImage: info.signImage,
         total: total,
         subTotal: subTotal,
@@ -49,16 +50,17 @@ class InvoiceForm extends React.Component {
       currentDate: "",
       invoiceNumber: "",
       dateOfIssue: "",
-      billTo: "",
+      billToEmail: "",
       billToMobile: "",
       billToAdress: "",
       billToName: "",
-      billFrom: "",
+      BillToGstNumber: "",
+      billTFromName: "",
       billFromBankName: "",
       billFromAccountNo: "",
       billFromIFSC: "",
       billFromBranch: "",
-      gstNumber: "",
+      billFromGSTNumber:"",
       signImage: '', // This will hold the image file
       previewUrl: '', // This will hold the preview URL of the image
       total: 0.0,
@@ -271,6 +273,16 @@ class InvoiceForm extends React.Component {
                   // required="required"
                   />
                   <Form.Control
+                    placeholder={"Enter Email"}
+                    value={this.state.billToEmail}
+                    type="email"
+                    name="billToEmail"
+                    className="my-2"
+                    onChange={(event) => this.editField(event)}
+                    autoComplete="email"
+                  // required="required"
+                  />
+                  <Form.Control
                     placeholder={"Billing address"}
                     value={this.state.billToAdress}
                     type="text"
@@ -282,9 +294,9 @@ class InvoiceForm extends React.Component {
                   />
                   <Form.Control
                     placeholder={"Enter GSTIN Number"}
-                    value={this.state.gstNumber}
+                    value={this.state.BillToGstNumber}
                     type="text"
-                    name="gstNumber"
+                    name="BillToGstNumber"
                     className="my-2"
                     autoComplete="address"
                     onChange={(event) => this.editField(event)}
@@ -300,7 +312,17 @@ class InvoiceForm extends React.Component {
                     name="billFromBankName"
                     className="my-2"
                     onChange={(event) => this.editField(event)}
-                    autoComplete="email"
+                    autoComplete="name"
+                  // required="required"
+                  />
+                  <Form.Control
+                    placeholder={"Enter Name"}
+                    value={this.state.billTFromName}
+                    type="text"
+                    name="billTFromName"
+                    className="my-2"
+                    autoComplete="name"
+                    onChange={(event) => this.editField(event)}
                   // required="required"
                   />
                   <Form.Control
@@ -319,7 +341,7 @@ class InvoiceForm extends React.Component {
                     type="text"
                     name="billFromIFSC"
                     className="my-2"
-                    autoComplete="address"
+                    autoComplete="ifsc"
                     onChange={(event) => this.editField(event)}
                   // required="required"
                   />
@@ -329,7 +351,17 @@ class InvoiceForm extends React.Component {
                     type="text"
                     name="billFromBranch"
                     className="my-2"
-                    autoComplete="address"
+                    autoComplete="branchname"
+                    onChange={(event) => this.editField(event)}
+                  // required="required"
+                  />
+                  <Form.Control
+                    placeholder={"Enter GSTIN Number"}
+                    value={this.state.billFromGSTNumber}
+                    type="text"
+                    name="billFromGSTNumber"
+                    className="my-2"
+                    autoComplete="GSTIN"
                     onChange={(event) => this.editField(event)}
                   // required="required"
                   />
