@@ -159,7 +159,7 @@ const InvoiceModal = ({
                       <img src={info.signImage} alt="Preview" style={{ width: '150px', height: '150px',margin:'auto' }} />
                     </div>
                   )}
-                  <h6 className="fontBold">Authorized Signatory</h6>
+                  <h6 className="fontBold pt-2">Authorized Signatory</h6>
                 </div>
               </div>
             </div>
