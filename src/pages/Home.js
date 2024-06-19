@@ -57,7 +57,7 @@ const Home = () => {
         </div>
       )}
 
-      <Table striped bordered hover size="sm">
+      <Table striped bordered hover size="sm" className="text-center">
         <thead>
           <tr>
             <th>#</th>
@@ -70,13 +70,13 @@ const Home = () => {
         <tbody>
           {invoices &&
             invoices.map((invoice, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{invoice.info.id}</td>
-                <td>{invoice.info.billToName}</td>
-                <td>{invoice.info.billFromBankName}</td>
-                <td>{invoice.info.dateOfIssue}</td>
-                <td>
+              <tr key={index} >
+                <td className="text-center pt-3">{index + 1}</td>
+                <td className="text-center pt-3">{invoice.info.id}</td>
+                <td className="text-center pt-3">{invoice.info.billToName}</td>
+                <td className="text-center pt-3">{invoice.info.billFromBankName}</td>
+                <td className="text-center pt-3">{invoice.info.dateOfIssue}</td>
+                <td className="text-center">
                 <Button
                   variant="outline-success"
                   className="m-1"
